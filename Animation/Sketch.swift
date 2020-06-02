@@ -53,24 +53,26 @@ class Sketch : NSObject {
                                                              "1": Color(hue: 56 , saturation: 100, brightness: 100, alpha: 100)
                                                             ],
                                                     generations: 3)
-        shrub = LindenmayerSystem(axiom: "X",
-         angle: 25,
-         rules: [
-            "X" : [
-                RuleSet(odds: 1, successorText: "0+F1[--X]-F2[++X]+F[--X]-F3[++X]"),
-                RuleSet(odds: 1, successorText: "0+F1[--X]-F+F2[--X]-F3[++X]"),
-                RuleSet(odds: 1, successorText: "0+F1[--X]-F2[++X]+F3[--X]-F")
-                ],
-            "F" : [
-                RuleSet(odds: 1, successorText: "0FF")
-                ]
-         ],
-         colors: ["0": Color(hue: 10, saturation: 40, brightness: 28, alpha: 100),
-                  "1": Color(hue: 119, saturation: 100, brightness: 44, alpha: 100),
-                  "2": Color(hue: 119, saturation: 58, brightness: 56, alpha: 100)
         
-            ],
-            generations: 5)
+        shrub = LindenmayerSystem(axiom: "X",
+                    angle: 20,
+                    rules: ["X": [
+                                 RuleSet(odds: 1, successorText: "1[[2-X][2-X+FX+FX][2+X]1-FX[2-XF]1F[2-X][2-X]]"),
+                                 RuleSet(odds: 1, successorText: "1[[2+X][2+X-FX-FX][2-X]1+FX[2+XF]1F[2+X][2+X]]"),
+                                 RuleSet(odds: 1, successorText: "1[[2-X][2-X+FXX+FX][2-FXFX]1-FX[2-XF][2-X]]")
+                                 ],
+                            
+                            "F":[
+                                RuleSet(odds: 1, successorText: "FFF")
+                                ]
+                           ],
+                    colors: [
+                             "1": Color(hue: 131 , saturation: 100, brightness: 25, alpha: 100),
+                             "2": Color(hue: 131, saturation: 61, brightness: 80, alpha: 100),
+                             "3": Color(hue: 132, saturation: 205, brightness: 151, alpha: 100)
+                             
+                            ],
+                    generations: 4)
         
         
         // Create a gradient sky background, blue to white as vertical location increases
@@ -110,15 +112,16 @@ class Sketch : NSObject {
             
         }
         
+        //Grass
         var groundVertices: [Point] = []
         canvas.fillColor = Color(hue: 120, saturation: 60, brightness: 40, alpha: 100)
         groundVertices.append(Point(x:0, y:300))
         groundVertices.append(Point(x:200, y:300))
         groundVertices.append(Point(x:500, y:300))
         groundVertices.append(Point(x:250, y:240))
-
         groundVertices.append(Point(x:0, y:100))
         
+
         
         
         canvas.drawCustomShape(with: groundVertices)
@@ -171,35 +174,39 @@ class Sketch : NSObject {
         
         // Iterate to create trees
         
-        for i in 1...3 {
-
-            // Use a quadratic relationship to define the vertical starting point for the top of each tree
-            // (trees grow down from starting point)
-            let x = 300 + i * 50                                  // This defines "spread" of the trees along the quadratic path
-            let y = 150 + i * 50    // Determine vertical position using y = a(x-h)^2 + k
-            
-            
-            // DEBUG: To help see where starting points are
-            print("Starting point for tree is... x: \(x), y: \(y)")
-            
-            // Define the length of the tree's initial stroke
-            let length = 27.0 - Double(y) / 16.0            // Piggyback on quadratic change in y values to set length
-            print("Length of line for system is: \(length)")
-            
-            // Generate the tree
-            var aTree = VisualizedLindenmayerSystem(system: coniferousTree,
-                                                    length: length,
-                                                    initialDirection: 270,
-                                                    reduction: 1.25,
-                                                    pointToStartRenderingFrom: Point(x: x, y: y),
-                                                    drawnOn: canvas)
-            
-            // Render this tree
-            aTree.renderFullSystem()
-            
-            
-            
-        }
+//        for i in 1...3 {
+//
+//            // Use a quadratic relationship to define the vertical starting point for the top of each tree
+//            // (trees grow down from starting point)
+//            let x = 300 + i * 50                                  // This defines "spread" of the trees along the quadratic path
+//            let y = 150 + i * 50    // Determine vertical position using y = a(x-h)^2 + k
+//
+//
+//            // DEBUG: To help see where starting points are
+//            print("Starting point for tree is... x: \(x), y: \(y)")
+//
+//            // Define the length of the tree's initial stroke
+//            let length = 27.0 - Double(y) / 16.0            // Piggyback on quadratic change in y values to set length
+//            print("Length of line for system is: \(length)")
+//
+//            // Generate the tree
+//            var aTree = VisualizedLindenmayerSystem(system: coniferousTree,
+//                                                    length: length,
+//                                                    initialDirection: 270,
+//                                                    reduction: 1.25,
+//                                                    pointToStartRenderingFrom: Point(x: x, y: y),
+//                                                    drawnOn: canvas)
+//
+//            // Render this tree
+//            aTree.renderFullSystem()
+//
+//
+//        }
+        
+        var theShrub = VisualizedLindenmayerSystem(system: shrub, length: 10, initialDirection: 0, reduction: 1.6, pointToStartRenderingFrom: Point(x: 0, y: 1000), drawnOn: canvas)
+        theShrub.renderFullSystem()
+        
+        
         
     }
     
