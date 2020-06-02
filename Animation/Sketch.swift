@@ -50,7 +50,7 @@ class Sketch : NSObject {
                                                                  ]
                                                            ],
                                                     colors: [
-                                                             "1": Color(hue: 56 , saturation: 46, brightness: 100, alpha: 100)
+                                                             "1": Color(hue: 56 , saturation: 100, brightness: 100, alpha: 100)
                                                             ],
                                                     generations: 3)
         shrub = LindenmayerSystem(axiom: "X",
@@ -92,7 +92,7 @@ class Sketch : NSObject {
         //       http://colorizer.org
         
         //draw sun
-        var sun = VisualizedLindenmayerSystem(system: theSun, length: 100, initialDirection: 45, reduction: 3, pointToStartRenderingFrom: Point(x: 55, y: 450), drawnOn: canvas)
+        var sun = VisualizedLindenmayerSystem(system: theSun, length: 94, initialDirection: 45, reduction: 3, pointToStartRenderingFrom: Point(x: 90, y: 430), drawnOn: canvas)
         sun.renderFullSystem()
         
         
@@ -112,12 +112,15 @@ class Sketch : NSObject {
         
         var groundVertices: [Point] = []
         canvas.fillColor = Color(hue: 120, saturation: 60, brightness: 40, alpha: 100)
-        groundVertices.append(Point(x:0, y:0))
-        groundVertices.append(Point(x:100, y:200))
+        groundVertices.append(Point(x:0, y:300))
         groundVertices.append(Point(x:200, y:300))
-        groundVertices.append(Point(x:300, y:300))
-        groundVertices.append(Point(x:400, y:200))
-        groundVertices.append(Point(x:500, y:0))
+        groundVertices.append(Point(x:500, y:300))
+        groundVertices.append(Point(x:250, y:240))
+
+        groundVertices.append(Point(x:0, y:100))
+        
+        
+        
         canvas.drawCustomShape(with: groundVertices)
         
 //        for y in 0...300 {
@@ -135,15 +138,15 @@ class Sketch : NSObject {
         let anotherPointOnParabola = Point(x: 100, y: 225)
         
         // Work out the "a" value for the parabola (vertical stretch)
-        let a = 3.1 * (anotherPointOnParabola.y - vertex.y) / pow(anotherPointOnParabola.x - vertex.x, 2)
+        let a = 6/13 * (anotherPointOnParabola.y - vertex.y) / pow(anotherPointOnParabola.x - vertex.x, 2)
         
         // Iterate to create 4 trees
-        for i in 1...4 {
+        for i in 1...9 {
 
             // Use a quadratic relationship to define the vertical starting point for the top of each tree
             // (trees grow down from starting point)
-            let x = CGFloat(i - 1) * 50.0 + 280              // This defines "spread" of the trees along the quadratic path
-            let y = a * pow(x - vertex.x, 2) + vertex.y     // Determine vertical position using y = a(x-h)^2 + k
+            let x = CGFloat(i - 1) * 50.0 + 20            // This defines "spread" of the trees along the quadratic path
+            let y = a * pow(x - vertex.x, 2) + vertex.y    // Determine vertical position using y = a(x-h)^2 + k
             
             
             // DEBUG: To help see where starting points are
