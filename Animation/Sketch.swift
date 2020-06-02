@@ -203,7 +203,7 @@ class Sketch : NSObject {
 //
 //        }
         
-        var theShrub = VisualizedLindenmayerSystem(system: shrub, length: 10, initialDirection: 0, reduction: 1.6, pointToStartRenderingFrom: Point(x: 0, y: 1000), drawnOn: canvas)
+        var theShrub = VisualizedLindenmayerSystem(system: shrub, length: 10, initialDirection: 0, reduction: 1.6, pointToStartRenderingFrom: Point(x: 400, y: 1000), drawnOn: canvas)
         theShrub.renderFullSystem()
         
         
