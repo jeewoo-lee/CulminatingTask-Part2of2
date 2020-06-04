@@ -207,17 +207,21 @@ class Sketch : NSObject {
             var theShrub = VisualizedLindenmayerSystem(system: shrub, length: 5, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 5 ), drawnOn: canvas)
             theShrub.renderFullSystem()
             if i > 1 {
-                var secondShrub = VisualizedLindenmayerSystem(system: shrub, length: 5, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 25 ), drawnOn: canvas)
+                var secondShrub = VisualizedLindenmayerSystem(system: shrub, length: 4, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 35 ), drawnOn: canvas)
                 secondShrub.renderFullSystem()
             }
             if i > 2 {
-                var thirdShrub = VisualizedLindenmayerSystem(system: shrub, length: 5, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 45 + i), drawnOn: canvas)
+                var thirdShrub = VisualizedLindenmayerSystem(system: shrub, length: 3, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 55 + i), drawnOn: canvas)
                 thirdShrub.renderFullSystem()
+            }
+            if i > 3 {
+                var number = Double.random(in: 2...4)
+                var fourthShrub = VisualizedLindenmayerSystem(system: shrub, length: number, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 75 + i), drawnOn: canvas)
+                fourthShrub.renderFullSystem()
             }
         }
         
-        let b = (anotherPointOnParabola.y - vertex.y) / pow(anotherPointOnParabola.x - vertex.x, 2)
-        
+ 
        
         
         
