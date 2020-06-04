@@ -54,7 +54,7 @@ class Sketch : NSObject {
                                                             ],
                                                     generations: 3)
         
-        shrub = LindenmayerSystem(axiom: "X",
+        shrub = LindenmayerSystem(axiom: "SX",
                     angle: 20,
                     rules: ["X": [
                                  RuleSet(odds: 1, successorText: "1[[2-X][2-X+FX+FX][2+X]1-FX[2-XF]1F[2-X][2-X]]"),
@@ -68,8 +68,8 @@ class Sketch : NSObject {
                            ],
                     colors: [
                              "1": Color(hue: 131 , saturation: 100, brightness: 25, alpha: 100),
-                             "2": Color(hue: 131, saturation: 61, brightness: 80, alpha: 100),
-                             "3": Color(hue: 132, saturation: 205, brightness: 151, alpha: 100)
+                             "2": Color(hue: 46, saturation: 100, brightness: 96, alpha: 100),
+                             "3": Color(hue: 37, saturation: 52, brightness: 151, alpha: 100)
                              
                             ],
                     generations: 4)
@@ -203,8 +203,22 @@ class Sketch : NSObject {
 //
 //        }
         
-        var theShrub = VisualizedLindenmayerSystem(system: shrub, length: 10, initialDirection: 0, reduction: 1.6, pointToStartRenderingFrom: Point(x: 400, y: 1000), drawnOn: canvas)
-        theShrub.renderFullSystem()
+        for i in 0...15 {
+            var theShrub = VisualizedLindenmayerSystem(system: shrub, length: 5, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 5 ), drawnOn: canvas)
+            theShrub.renderFullSystem()
+            if i > 1 {
+                var secondShrub = VisualizedLindenmayerSystem(system: shrub, length: 5, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 25 ), drawnOn: canvas)
+                secondShrub.renderFullSystem()
+            }
+            if i > 2 {
+                var thirdShrub = VisualizedLindenmayerSystem(system: shrub, length: 5, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 45 + i), drawnOn: canvas)
+                thirdShrub.renderFullSystem()
+            }
+        }
+        
+        let b = (anotherPointOnParabola.y - vertex.y) / pow(anotherPointOnParabola.x - vertex.x, 2)
+        
+       
         
         
         
