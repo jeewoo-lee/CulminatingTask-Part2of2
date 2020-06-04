@@ -13,6 +13,7 @@ class Sketch : NSObject {
     let shrub: LindenmayerSystem
     let dendelion: LindenmayerSystem
     let bush: LindenmayerSystem
+    let leaningTree: LindenmayerSystem
     
     // This function runs once
     override init() {
@@ -109,6 +110,22 @@ class Sketch : NSObject {
                          "2": Color(hue: 107, saturation: 44, brightness: 0, alpha: 100)
                         ],
                 generations: 5)
+        
+        leaningTree = LindenmayerSystem(axiom: "SF",
+                angle: 22,
+                rules: [
+                        "F":[
+                            RuleSet(odds: 1, successorText: "1FF-[2-F+F+F]+[3+F-F-F]"),
+                            RuleSet(odds: 1, successorText: "1FF-[2-F+F+F]+[3+F-F-F]"),
+                            RuleSet(odds: 1, successorText: "1FF+[2+F-F-F]-[3-F+F+F]")
+                            ]
+                    ],
+                colors: [
+                         "1": Color(hue: 50 , saturation: 50, brightness: 20, alpha: 100),
+                         "2": Color(hue: 21, saturation: 100, brightness: 100, alpha: 100),
+                         "3": Color(hue: 40, saturation: 95, brightness: 90, alpha: 100)
+                        ],
+                generations: 4)
         
         // Create a gradient sky background, blue to white as vertical location increases
         for y in 300...500 {
@@ -215,10 +232,24 @@ class Sketch : NSObject {
             aTree.renderFullSystem()
             
         }
+        
+        //fall trees
+        for i in 0...5 {
+                   let number = Int.random(in: -20...20)
+                   var theLeaningTree = VisualizedLindenmayerSystem(system: leaningTree, length: 8, initialDirection: 90, reduction: 2, pointToStartRenderingFrom: Point(x: 340 + 25 * i, y: 210 + number), drawnOn: canvas)
+                   theLeaningTree.renderFullSystem()
+               }
+               
+               for i in 0...1 {
+                   let number = Int.random(in: -20...20)
+                   var theLeaningTree = VisualizedLindenmayerSystem(system: leaningTree, length: 10, initialDirection: 90, reduction: 2, pointToStartRenderingFrom: Point(x: 420 + 25 * i, y: 160 + number), drawnOn: canvas)
+                   theLeaningTree.renderFullSystem()
+               }
+        
         //bush
         for i in 1...5 {
             if i > 1 {
-                var secondBush = VisualizedLindenmayerSystem(system: bush, length: 6, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: 50 + i * canvas.width/10, y: 155 ), drawnOn: canvas)
+                var secondBush = VisualizedLindenmayerSystem(system: bush, length: 6, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: 50 + i * canvas.width/10, y: 160 ), drawnOn: canvas)
                 secondBush.renderFullSystem()
             }
             if i > 2 {
@@ -253,6 +284,9 @@ class Sketch : NSObject {
                 fourthShrub.renderFullSystem()
             }
         }
+        
+       
+        
         
         
         
