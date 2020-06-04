@@ -69,7 +69,7 @@ class Sketch : NSObject {
                            ],
                     colors: [
                              "1": Color(hue: 131 , saturation: 100, brightness: 25, alpha: 100),
-                             "2": Color(hue: 46, saturation: 100, brightness: 96, alpha: 100),
+                             "2": Color(hue: 318, saturation: 22, brightness: 96, alpha: 100),
                              "3": Color(hue: 37, saturation: 52, brightness: 151, alpha: 100)
                              
                             ],
@@ -87,7 +87,7 @@ class Sketch : NSObject {
                            ],
                     colors: [
                              "1": Color(hue: 16 , saturation: 36, brightness: 75, alpha: 100),
-                             "2": Color(hue: 95, saturation: 90, brightness: 60, alpha: 100),
+                             "2": Color(hue: 50, saturation: 100, brightness: 96, alpha: 100),
                              "3": Color(hue: 19, saturation: 39, brightness: 38, alpha: 100)
                             ],
                     generations: 4)
@@ -178,6 +178,15 @@ class Sketch : NSObject {
         // Work out the "a" value for the parabola (vertical stretch)
         let a = 6/13 * (anotherPointOnParabola.y - vertex.y) / pow(anotherPointOnParabola.x - vertex.x, 2)
         
+        //Creating others
+        for i in 1...7 {
+            let number = Int.random(in: -10...10)
+            let length = 300 / (Double(number) + 200)
+            var thedendelion = VisualizedLindenmayerSystem(system: dendelion, length: length, initialDirection: 90, reduction: 1, pointToStartRenderingFrom: Point(x: 25 * i, y: 270 + number), drawnOn: canvas)
+            thedendelion.renderFullSystem()
+
+        }
+        
         // Iterate to create 4 trees
         for i in 1...9 {
 
@@ -206,17 +215,36 @@ class Sketch : NSObject {
             aTree.renderFullSystem()
             
         }
+        //bush
+        for i in 1...5 {
+            if i > 1 {
+                var secondBush = VisualizedLindenmayerSystem(system: bush, length: 6, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: 50 + i * canvas.width/10, y: 155 ), drawnOn: canvas)
+                secondBush.renderFullSystem()
+            }
+            if i > 2 {
+                var thirdBush = VisualizedLindenmayerSystem(system: bush, length: 5, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: 50 + i * canvas.width/10, y: 170 + i), drawnOn: canvas)
+                thirdBush.renderFullSystem()
+            }
+            if i > 3 {
+                var fourthBush = VisualizedLindenmayerSystem(system: bush, length: 8, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: 50 + i * canvas.width/10, y: 190 + i), drawnOn: canvas)
+                fourthBush.renderFullSystem()
+            }
+            if i > 4 {
+                var theBush = VisualizedLindenmayerSystem(system: bush, length: 5, initialDirection: 0, reduction: 2, pointToStartRenderingFrom: Point(x:50 + 45 * i, y: 200), drawnOn: canvas)
+                theBush.renderFullSystem()
+            }
+        }
         
         //Creating three lines of Shrubs
         for i in 0...15 {
-            var theShrub = VisualizedLindenmayerSystem(system: shrub, length: 5, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 5 ), drawnOn: canvas)
+            var theShrub = VisualizedLindenmayerSystem(system: shrub, length: 6, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 5 ), drawnOn: canvas)
             theShrub.renderFullSystem()
             if i > 1 {
-                var secondShrub = VisualizedLindenmayerSystem(system: shrub, length: 4, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 35 ), drawnOn: canvas)
+                var secondShrub = VisualizedLindenmayerSystem(system: shrub, length: 5, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 35 ), drawnOn: canvas)
                 secondShrub.renderFullSystem()
             }
             if i > 2 {
-                var thirdShrub = VisualizedLindenmayerSystem(system: shrub, length: 3, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 55 + i), drawnOn: canvas)
+                var thirdShrub = VisualizedLindenmayerSystem(system: shrub, length: 4, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 55 + i), drawnOn: canvas)
                 thirdShrub.renderFullSystem()
             }
             if i > 3 {
@@ -226,33 +254,9 @@ class Sketch : NSObject {
             }
         }
         
-        //Creating others
-        for i in 1...5 {
-            let number = Int.random(in: -50...50)
-            let length = 300 / (Double(number) + 200)
-            var thedendelion = VisualizedLindenmayerSystem(system: dendelion, length: length, initialDirection: 90, reduction: 1, pointToStartRenderingFrom: Point(x: 250 + 45 * i, y: 200 + number), drawnOn: canvas)
-            thedendelion.renderFullSystem()
-
-        }
         
-        //bush
-        for i in 0...10 {
-           var theBush = VisualizedLindenmayerSystem(system: bush, length: 4, initialDirection: 0, reduction: 2, pointToStartRenderingFrom: Point(x:200 + 45 * i, y: 240), drawnOn: canvas)
-            theBush.renderFullSystem()
-            if i > 1 {
-                var secondBush = VisualizedLindenmayerSystem(system: shrub, length: 6, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: 250 + i * canvas.width/16, y: 180 ), drawnOn: canvas)
-                secondBush.renderFullSystem()
-            }
-            if i > 2 {
-                var thirdBush = VisualizedLindenmayerSystem(system: shrub, length: 6, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: 250 + i * canvas.width/16, y: 200 + i), drawnOn: canvas)
-                thirdBush.renderFullSystem()
-            }
-            if i > 3 {
-                let number = Double.random(in: 4...5)
-                var fourthBush = VisualizedLindenmayerSystem(system: shrub, length: nuumber, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: 250 + i * canvas.width/16, y: 220 + i), drawnOn: canvas)
-                fourthBush.renderFullSystem()
-            }
-        }
+        
+        
        
          
     }
