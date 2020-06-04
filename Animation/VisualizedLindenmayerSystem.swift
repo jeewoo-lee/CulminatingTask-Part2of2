@@ -43,9 +43,12 @@ struct VisualizedLindenmayerSystem {
         self.t = Tortoise(drawingUpon: canvas)
             
         // Reduce the line length after generation 1
-        for _ in 1...system.generations - 1 {
-            currentLength /= reduction
+        if system.generations != 1 {
+            for _ in 1...system.generations - 1 {
+                currentLength /= reduction
+            }
         }
+        
         
     }
     
@@ -116,7 +119,7 @@ struct VisualizedLindenmayerSystem {
             t.setPosition(to: pointToStartRenderingFrom)
             t.left(by: initialDirection)
             t.penDown()
-        case "F", "X":
+        case "F", "X", "T", "W", "Z", "B", "C":
             t.forward(steps: currentLength)
         case "+":
             t.right(by: system.angle)
@@ -126,7 +129,11 @@ struct VisualizedLindenmayerSystem {
             t.saveState()
         case "]":
             t.restoreState()
-        case "1","2","3","4","5","6","7","8","9":
+        case "f":
+            t.penUp()
+            t.forward(steps: currentLength)
+            t.penDown()
+        case "0","1","2","3","4","5","6","7","8","9":
             if let providedColor = system.colors[command] {
                 t.setPenColor(to: providedColor)
             }

@@ -12,6 +12,7 @@ class Sketch : NSObject {
     let theSun: LindenmayerSystem
     let shrub: LindenmayerSystem
     let dendelion: LindenmayerSystem
+    let bush: LindenmayerSystem
     
     // This function runs once
     override init() {
@@ -90,6 +91,24 @@ class Sketch : NSObject {
                              "3": Color(hue: 19, saturation: 39, brightness: 38, alpha: 100)
                             ],
                     generations: 4)
+        
+        bush = LindenmayerSystem(axiom: "S[FX]+[FX]+[FX]",
+                angle: 25,
+                rules: [
+                        "F":[
+                            RuleSet(odds: 2, successorText: "0FF-[1-F+F]+[2+F-F]"),
+                            RuleSet(odds: 1, successorText: "0FF+[1+F-F]+[2+F-F]")
+                            ],
+                        "X":[
+                            RuleSet(odds: 1, successorText: "0FF+[1+F]+[2-F]")
+                            ]
+                    ],
+                colors: [
+                         "0": Color(hue: 26 , saturation: 100, brightness: 55, alpha: 100),
+                         "1": Color(hue: 107, saturation: 100, brightness: 44, alpha: 100),
+                         "2": Color(hue: 107, saturation: 44, brightness: 0, alpha: 100)
+                        ],
+                generations: 5)
         
         // Create a gradient sky background, blue to white as vertical location increases
         for y in 300...500 {
@@ -216,7 +235,26 @@ class Sketch : NSObject {
 
         }
         
-        
+        //bush
+        for i in 0...10 {
+           var theBush = VisualizedLindenmayerSystem(system: bush, length: 4, initialDirection: 0, reduction: 2, pointToStartRenderingFrom: Point(x:200 + 45 * i, y: 240), drawnOn: canvas)
+            theBush.renderFullSystem()
+            if i > 1 {
+                var secondBush = VisualizedLindenmayerSystem(system: shrub, length: 6, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: 250 + i * canvas.width/16, y: 180 ), drawnOn: canvas)
+                secondBush.renderFullSystem()
+            }
+            if i > 2 {
+                var thirdBush = VisualizedLindenmayerSystem(system: shrub, length: 6, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: 250 + i * canvas.width/16, y: 200 + i), drawnOn: canvas)
+                thirdBush.renderFullSystem()
+            }
+            if i > 3 {
+                let number = Double.random(in: 4...5)
+                var fourthBush = VisualizedLindenmayerSystem(system: shrub, length: nuumber, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: 250 + i * canvas.width/16, y: 220 + i), drawnOn: canvas)
+                fourthBush.renderFullSystem()
+            }
+        }
+       
+         
     }
     
     // This function runs repeatedly, forever, to create the animated effect
