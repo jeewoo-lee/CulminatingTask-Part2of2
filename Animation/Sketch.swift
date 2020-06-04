@@ -11,7 +11,7 @@ class Sketch : NSObject {
     let coniferousTree: LindenmayerSystem
     let theSun: LindenmayerSystem
     let shrub: LindenmayerSystem
-    
+    let dendelion: LindenmayerSystem
     
     // This function runs once
     override init() {
@@ -74,6 +74,22 @@ class Sketch : NSObject {
                             ],
                     generations: 4)
         
+        dendelion = LindenmayerSystem(axiom: "S1F",
+                    angle: 20,
+                    rules: [
+                            "F":[
+                                RuleSet(odds: 1, successorText: "2X[++1F][+F][-F][--F]")
+                                ],
+                            "X":[
+                                RuleSet(odds: 1, successorText: "2XX")
+                                ]
+                           ],
+                    colors: [
+                             "1": Color(hue: 16 , saturation: 36, brightness: 75, alpha: 100),
+                             "2": Color(hue: 95, saturation: 90, brightness: 60, alpha: 100),
+                             "3": Color(hue: 19, saturation: 39, brightness: 38, alpha: 100)
+                            ],
+                    generations: 4)
         
         // Create a gradient sky background, blue to white as vertical location increases
         for y in 300...500 {
@@ -172,37 +188,7 @@ class Sketch : NSObject {
             
         }
         
-        // Iterate to create trees
-        
-//        for i in 1...3 {
-//
-//            // Use a quadratic relationship to define the vertical starting point for the top of each tree
-//            // (trees grow down from starting point)
-//            let x = 300 + i * 50                                  // This defines "spread" of the trees along the quadratic path
-//            let y = 150 + i * 50    // Determine vertical position using y = a(x-h)^2 + k
-//
-//
-//            // DEBUG: To help see where starting points are
-//            print("Starting point for tree is... x: \(x), y: \(y)")
-//
-//            // Define the length of the tree's initial stroke
-//            let length = 27.0 - Double(y) / 16.0            // Piggyback on quadratic change in y values to set length
-//            print("Length of line for system is: \(length)")
-//
-//            // Generate the tree
-//            var aTree = VisualizedLindenmayerSystem(system: coniferousTree,
-//                                                    length: length,
-//                                                    initialDirection: 270,
-//                                                    reduction: 1.25,
-//                                                    pointToStartRenderingFrom: Point(x: x, y: y),
-//                                                    drawnOn: canvas)
-//
-//            // Render this tree
-//            aTree.renderFullSystem()
-//
-//
-//        }
-        
+        //Creating three lines of Shrubs
         for i in 0...15 {
             var theShrub = VisualizedLindenmayerSystem(system: shrub, length: 5, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 5 ), drawnOn: canvas)
             theShrub.renderFullSystem()
@@ -215,15 +201,20 @@ class Sketch : NSObject {
                 thirdShrub.renderFullSystem()
             }
             if i > 3 {
-                var number = Double.random(in: 2...4)
+                let number = Double.random(in: 2...4)
                 var fourthShrub = VisualizedLindenmayerSystem(system: shrub, length: number, initialDirection: 90, reduction: 1.6, pointToStartRenderingFrom: Point(x: i * canvas.width/16, y: 75 + i), drawnOn: canvas)
                 fourthShrub.renderFullSystem()
             }
         }
         
- 
-       
-        
+        //Creating others
+        for i in 1...5 {
+            let number = Int.random(in: -50...50)
+            let length = 300 / (Double(number) + 200)
+            var thedendelion = VisualizedLindenmayerSystem(system: dendelion, length: length, initialDirection: 90, reduction: 1, pointToStartRenderingFrom: Point(x: 250 + 45 * i, y: 200 + number), drawnOn: canvas)
+            thedendelion.renderFullSystem()
+
+        }
         
         
     }
